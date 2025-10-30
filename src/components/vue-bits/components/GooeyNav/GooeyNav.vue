@@ -1,4 +1,5 @@
 <!--
+  // 此源码以被二次改造为router跳转
 	Installed from https://vue-bits.dev/ui/
 -->
 
@@ -24,9 +25,9 @@
           >
             <a
               :href="item.href || undefined"
-              @click="(e) => handleClick(e, index)"
-              @keydown="(e) => handleKeyDown(e, index)"
-              class="outline-none py-[0.6em] px-[1em] inline-block"
+              @click.prevent="(e) => handleClick(e, index, item.href)"
+              @keydown="(e) => handleKeyDown(e, index, item.href)"
+              class="outline-none py-[0.6em] px-[1em] inline-block no-underline text-inherit"
             >
               {{ item.label }}
             </a>
@@ -148,7 +149,11 @@
     textRef.value.innerText = element.innerText
   }
 
-  const handleClick = (e: Event, index: number) => {
+  // 代码改造
+  import { useRouter } from 'vue-router'
+  const router = useRouter()
+
+  const handleClick = (e: Event, index: number, href: string | null) => {
     const liEl = (e.currentTarget as HTMLElement).parentElement as HTMLElement
     if (activeIndex.value === index) return
     activeIndex.value = index
@@ -165,9 +170,13 @@
     if (filterRef.value) {
       makeParticles(filterRef.value)
     }
+    // 跳转路由
+    if (href === null) return
+    router.push({ path: href })
   }
 
-  const handleKeyDown = (e: KeyboardEvent, index: number) => {
+  // 代码改造
+  const handleKeyDown = (e: KeyboardEvent, index: number, href: string | null) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
       const liEl = (e.currentTarget as HTMLElement).parentElement
@@ -176,7 +185,8 @@
           {
             currentTarget: liEl
           } as unknown as Event,
-          index
+          index,
+          href
         )
       }
     }

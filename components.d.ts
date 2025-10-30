@@ -19,7 +19,10 @@ declare module 'vue' {
     ElImage: typeof import('element-plus/es')['ElImage']
     ElMain: typeof import('element-plus/es')['ElMain']
     GooeyNav: typeof import('./src/components/vue-bits/components/GooeyNav/GooeyNav.vue')['default']
+    Layout: typeof import('./src/components/core/layout/Layout.vue')['default']
     PixelBlast: typeof import('./src/components/vue-bits/backgrounds/PixelBlast/PixelBlast.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     ShinyText: typeof import('./src/components/vue-bits/text/ShinyText/ShinyText.vue')['default']
   }
 }
